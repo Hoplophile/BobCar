@@ -22,6 +22,8 @@ void Timer2_Init() {
 
 /* Timer2_SetCounter
  * Set compare value (PWM duty) for timer2
+ * Params:
+ *	compare_value: value to write to compare register (0-255)
  */
 void Timer2_SetCounter(int compare_value){
 	OCR2A = compare_value;
@@ -103,6 +105,13 @@ void POWTR_Stop(){
 	PORTD &= ~(1 << PIN_BWD);
 }
 
+/* POWTR_SendCommand
+ * Pass command to powertrain module to perform
+ * action related to driving
+ * Params:
+ *	command:	command from bluetooth module (of type enum command)
+ *				related to powertrain
+ */
 void POWTR_SendCommand(enum commands command){
 	switch(command){
 		case FORWARD:

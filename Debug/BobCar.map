@@ -41,15 +41,19 @@ Discarded input sections
  .bss           0x00000000        0x0 lights_and_sound.o
  .text.Init_Timer0
                 0x00000000        0xe lights_and_sound.o
- .debug_info    0x00000000       0x82 lights_and_sound.o
- .debug_abbrev  0x00000000       0x4f lights_and_sound.o
+ .text.LnS_Init
+                0x00000000        0x8 lights_and_sound.o
+ .text.LnS_SendCommand
+                0x00000000        0x2 lights_and_sound.o
+ .debug_info    0x00000000      0x11c lights_and_sound.o
+ .debug_abbrev  0x00000000       0xa8 lights_and_sound.o
  .debug_aranges
-                0x00000000       0x20 lights_and_sound.o
- .debug_ranges  0x00000000       0x10 lights_and_sound.o
- .debug_line    0x00000000       0xb3 lights_and_sound.o
- .debug_str     0x00000000      0x15c lights_and_sound.o
+                0x00000000       0x30 lights_and_sound.o
+ .debug_ranges  0x00000000       0x20 lights_and_sound.o
+ .debug_line    0x00000000       0xf5 lights_and_sound.o
+ .debug_str     0x00000000      0x207 lights_and_sound.o
  .comment       0x00000000       0x31 lights_and_sound.o
- .debug_frame   0x00000000       0x24 lights_and_sound.o
+ .debug_frame   0x00000000       0x44 lights_and_sound.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -607,13 +611,13 @@ END GROUP
  .debug_abbrev  0x0000075a      0x119 powertrain.o
  .debug_abbrev  0x00000873       0xe4 uart.o
 
-.debug_line     0x00000000      0x72c
+.debug_line     0x00000000      0x72d
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x136 controller.o
  .debug_line    0x00000269       0xf5 main.o
- .debug_line    0x0000035e      0x275 powertrain.o
- .debug_line    0x000005d3      0x159 uart.o
+ .debug_line    0x0000035e      0x276 powertrain.o
+ .debug_line    0x000005d4      0x159 uart.o
 
 .debug_frame    0x00000000      0x1a4
  *(.debug_frame)

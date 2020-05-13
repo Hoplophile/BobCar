@@ -18,3 +18,22 @@ void Init_Timer0() {
 	//		  prescaler 8
 	TCCR0B |= (1 << CS01);						//16Mhz / (8 * 255) = 7.8kHz
 }
+
+void LnS_Init(){
+	PORTC |= (1 << PIN_MAIN_LIGHTS);
+	PORTC |= (1 << PIN_BACKWARD_LIGHTS);
+	PORTC |= (1 << PIN_BREAK_LIGHTS); 
+}
+
+void LnS_SendCommand(enum commands command){
+	switch(command){
+		case LIGHTS_ON:
+			break;
+		case LIGHTS_OFF:
+			break;
+		case BEEP:
+			break;
+		default:
+			break;
+	}
+}
