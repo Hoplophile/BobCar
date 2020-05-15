@@ -8,6 +8,7 @@
 #ifndef POWERTRAIN_H_
 #define POWERTRAIN_H_
 
+#include "lights_and_sound.h"
 #include "controller.h"
 #include <avr/io.h>
 

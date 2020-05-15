@@ -14,8 +14,15 @@
 #define PIN_MAIN_LIGHTS		PC0
 #define PIN_BACKWARD_LIGHTS	PC1
 #define PIN_BREAK_LIGHTS	PC2
+#define PIN_BUZZER				PD5
+#define	ON	1
+#define OFF 0
 
 void LnS_Init(void);
 void LnS_SendCommand(enum commands);
+void LnS_BuzzerSwitch(int);
+void LnS_MainLightsSwitch(int);
+void LnS_BackwardLightsSwitch(int);
+void LnS_BreakLightsSwitch(int);
 
 #endif /* LIGHTS_AND_SOUND_H_ */

@@ -5,19 +5,18 @@
  * Author : piotr
  */ 
 
-#include "controller.h"
 #include "powertrain.h"
 #include <avr/io.h>
 
 int main(void)
-{
-	DDRC = 0xFF;
-	PORTC = (0 << PC0);
-	
+{	
 	UART_init(9600, true, true);
 	enum commands command;
 	
 	POWTR_Init();
+	LnS_Init();
+	
+	LnS_BuzzerSwitch(ON);
 	
 	while (1)
 	{

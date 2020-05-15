@@ -7,29 +7,99 @@
 
 #include "lights_and_sound.h"
 
+uint8_t buzzer_timer_compare_value;
 
 /* Init_Timer0
 *  Initialize Timer0 for Fast PWM on pin 5 (BUZZER)
 */
 void Init_Timer0() {
-	//		  tmr 8-bit					  | use pin 5
-	TCCR0A |= (1 << WGM01) | (1 << WGM00) | (1 << COM0A1);
+	//		  tmr 8-bit					  | toggle pin 5
+	TCCR0A |= (1 << WGM01) | (1 << WGM00) | (1 << COM0B1);
 	
-	//		  prescaler 8
-	TCCR0B |= (1 << CS01);						//16Mhz / (8 * 255) = 7.8kHz
+	//		  prescaler 1
+	TCCR0B |= (1 << WGM02);
+	
+	OCR0A = 0x40;
 }
 
+/* LnS_Init
+ * initialize lights and buzzer pins as outputs and set to 0
+ */
 void LnS_Init(){
-	PORTC |= (1 << PIN_MAIN_LIGHTS);
-	PORTC |= (1 << PIN_BACKWARD_LIGHTS);
-	PORTC |= (1 << PIN_BREAK_LIGHTS); 
+	DDRC |= (1 << PIN_MAIN_LIGHTS);
+	DDRC |= (1 << PIN_BACKWARD_LIGHTS);
+	DDRC |= (1 << PIN_BREAK_LIGHTS);
+	DDRD |= (1 << PIN_BUZZER);
+	PORTC &= ~(1 << PIN_MAIN_LIGHTS);
+	PORTC &= ~(1 << PIN_BACKWARD_LIGHTS);
+	PORTC &= ~(1 << PIN_BREAK_LIGHTS);
+	PORTD &= ~(1 << PIN_BUZZER);
+	Init_Timer0();
+	LnS_BuzzerSwitch(OFF);
 }
 
+int LnS_CheckDawn(){
+	
+}
+
+/* LnS_BuzzerSwitch
+ * Switch buzzer ON/OFF
+ *	state: ON/OFF defined in .h
+ */
+void LnS_BuzzerSwitch(int state){
+	if(state == OFF)
+		TCCR0B &= (0 << CS02);	
+	else
+		TCCR0B |= (1 << CS02);					//16Mhz / (1 * 255) = 62kHz}
+}
+
+/* LnS_MainLightsSwitch
+ * Switch main lights ON/OFF
+ *	state: ON/OFF defined in .h
+ */
+void LnS_MainLightsSwitch(int state){
+	if(state == OFF)
+		PORTC &= ~(1 << PIN_MAIN_LIGHTS);
+	else
+		PORTC |= (1 << PIN_MAIN_LIGHTS);
+}
+
+/* LnS_BackwardLightsSwitch
+ * Switch backward lights ON/OFF
+ *	state: ON/OFF defined in .h
+ */
+void LnS_BackwardLightsSwitch(int state){
+	if(state == OFF)
+		PORTC &= ~(1 << PIN_BACKWARD_LIGHTS);
+	else
+		PORTC |= (1 << PIN_BACKWARD_LIGHTS);
+}
+
+/* LnS_BreakLightsSwitch
+ * Switch break lights ON/OFF
+ *	state: ON/OFF defined in .h
+ */
+void LnS_BreakLightsSwitch(int state){
+	if(state == OFF)
+		PORTC &= ~(1 << PIN_BREAK_LIGHTS);
+	else
+		PORTC |= (1 << PIN_BREAK_LIGHTS);
+}
+
+/* LnS_SendCommand
+ * Pass command to lights and sound module to perform
+ * action related to lights or buzzer
+ * Params:
+ *	command:	command from bluetooth module (of type enum command)
+ *				related to lights or buzzer
+ */
 void LnS_SendCommand(enum commands command){
 	switch(command){
 		case LIGHTS_ON:
+			LnS_MainLightsSwitch(ON);
 			break;
 		case LIGHTS_OFF:
+			LnS_MainLightsSwitch(OFF);
 			break;
 		case BEEP:
 			break;
