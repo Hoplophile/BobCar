@@ -10,5 +10,7 @@ main.c
 
 powertrain.c
 
+sr_04.c
+
 uart.c
 

@@ -14,7 +14,10 @@
 #define PIN_MAIN_LIGHTS		PC0
 #define PIN_BACKWARD_LIGHTS	PC1
 #define PIN_BREAK_LIGHTS	PC2
-#define PIN_BUZZER				PD5
+#define PIN_BUZZER			PD5
+
+#define DAWN_LIGHT_LEVEL 100
+
 #define	ON	1
 #define OFF 0
 

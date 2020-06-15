@@ -13,6 +13,12 @@ void CTRL_SendDistance(unsigned int distance){
 	UART_putstring(&message[0]);
 }
 
+void CTRL_SendTemp(unsigned int temperature){
+	char message[4];
+	sprintf(message, "T%d\n", temperature);
+	UART_putstring(&message[0]);
+}
+
 enum commands CTRL_GetCommand(){
 	char received_char;
 	received_char = UART_read();

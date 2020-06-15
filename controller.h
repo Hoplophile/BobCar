@@ -27,6 +27,7 @@ enum commands{
 	};
 
 void CTRL_SendDistance(unsigned int); 
+void CTRL_SendTemp(unsigned int);
 enum commands CTRL_GetCommand(void);
 
 #endif /* CONTROLLER_H_ */
