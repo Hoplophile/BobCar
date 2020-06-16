@@ -26,7 +26,7 @@ enum commands{
 	UNKNOWN
 	};
 
-void CTRL_SendDistance(unsigned int); 
+void CTRL_SendDistance(unsigned long); 
 void CTRL_SendTemp(unsigned int);
 enum commands CTRL_GetCommand(void);
 
