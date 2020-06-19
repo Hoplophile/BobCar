@@ -23,7 +23,7 @@ int main(void)
 	POWTR_Init();
 	LnS_Init();
 	
-	//LnS_BuzzerSwitch(ON);
+	LnS_BuzzerSwitch(ON);
 	_delay_ms(250);
 	
 	while (1)
@@ -31,13 +31,13 @@ int main(void)
 		// read sensors
 		
 		get_dist_cm(mysensor);
-		//CTRL_SendDistance(mysensor->_last_distance_mm);
+		CTRL_SendDistance((mysensor->_last_distance_mm)/10);
 		
-		//if(mysensor->_last_distance_mm < 15) {
-			//LnS_BuzzerSwitch(ON);
-		//} else {
-			//LnS_BuzzerSwitch(OFF);
-		//}
+		if(mysensor->_last_distance_mm < 150) {
+			LnS_BuzzerSwitch(ON);
+			} else {
+			LnS_BuzzerSwitch(OFF);
+		}
 		
 		// read commands from controller
 		if(UART_available()){
@@ -49,7 +49,7 @@ int main(void)
 				// lightandsound command
 			}
 		}
-		_delay_ms(250);
+		_delay_ms(50);
 	}
 	return 0;
 }
