@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-void set_led (bool state);
-
 typedef struct {
   unsigned long _last_distance_mm;    // min=0, max=~400
   uint16_t _last_duration;  // 1 = 4us

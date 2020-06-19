@@ -10,8 +10,7 @@
 
 #define F_CPU 16000000UL
 
-void UART_init(unsigned int baud, bool RX, bool TX)
-{
+void UART_init(unsigned int baud, bool RX, bool TX){
 	unsigned int baudrate;
 	baudrate = (((F_CPU / (baud * 16UL))) - 1);
 	UBRR0H = (unsigned char)(baudrate >> 8);
@@ -35,13 +34,11 @@ void UART_init(unsigned int baud, bool RX, bool TX)
 }
 
 void UART_send( unsigned char data){
-
 	while(!(UCSR0A & (1<<UDRE0)));
 	UDR0 = data;
 }
 
 void UART_putstring(char* StringPtr){
-
 	while(*StringPtr != 0x00)
 	{
 		UART_send(*StringPtr);
@@ -49,12 +46,10 @@ void UART_putstring(char* StringPtr){
 	}
 }
 
-bool UART_available()
-{
+bool UART_available(){
 	return (UCSR0A & (1<<RXC0));
 }
 
-unsigned char UART_read()
-{
+unsigned char UART_read(){
 	return UDR0;
 }

@@ -5,15 +5,6 @@
 #include <stdlib.h>
 #include <util/delay.h>
 
-void set_led(bool state) {
-  DDRB |= (1 << DDB5);
-  if(state) {
-	  PORTB |= (1 << PORTB5);
-  } else {
-	  PORTB &= ~(1 << PORTB5);
-  }
-}
-
 sr_04 *sensor_new(uint8_t measure_iter,
                   volatile uint8_t *trig_DDRX,
                   uint8_t trig_DDXY,
@@ -66,7 +57,6 @@ void measure_duration(sr_04 *sensor) {
   while ((*(sensor->_echo_PINX) & (1 << sensor->_echo_PINXY)) == 0) {
   }
 
-set_led(false);
   TCNT1 = 0;                             /* Clear timer counter */
   TCCR1B |= ((1 << CS11) | (1 << CS10)); /* Normal Mode, prescaler 64 */
 
@@ -80,7 +70,7 @@ set_led(false);
 }
 
 int calculate_distance_mm(uint16_t duration) {
-  return (unsigned long)((double)duration * 0.686);  // jakieœ robocze wartoœci
+  return (unsigned long)((double)duration * 0.686);
 }
 
 int get_dist_cm(sr_04 *sensor) {

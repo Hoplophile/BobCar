@@ -9,13 +9,13 @@
 
 void CTRL_SendDistance(unsigned long distance){
 	char message[15];
-	sprintf(message, "D = %lu  \n", distance);
+	sprintf(message, "D%lu\n", distance);
 	UART_putstring(&message[0]);
 }
 
 void CTRL_SendTemp(unsigned int temperature){
 	char message[15];
-	sprintf(message, "T = %u  \n", temperature);
+	sprintf(message, "T%u\n", temperature);
 	UART_putstring(&message[0]);
 }
 
