@@ -75,7 +75,7 @@ int calculate_distance_mm(uint16_t duration) {
   return (unsigned long)((double)duration * 0.686);
 }
 
-int get_dist_cm(sr_04 *sensor) {
+int get_dist_mm(sr_04 *sensor) {
   measure_duration(sensor);
   sensor->_last_distance_mm = calculate_distance_mm(sensor->_last_duration);
 

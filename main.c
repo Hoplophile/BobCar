@@ -8,7 +8,7 @@
 #define F_CPU 16000000UL
 
 #include "powertrain.h"
-#include "sr_04.h"
+#include "sensors.h"
 #include <avr/io.h>
 #include <util/delay.h>
 
@@ -16,28 +16,19 @@
 int main(void)
 {	
 	UART_init(9600, true, true);
-	enum commands command;
-	
-	sr_04 *mysensor = sensor_new(4, &DDRB, DDB1, &PORTB, PORTB1, &DDRB, DDB2, &PINB, PINB2);
-	
+
 	POWTR_Init();
 	LnS_Init();
+	SENS_Init();
 	
 	LnS_BuzzerSwitch(ON);
-	_delay_ms(250);
+	_delay_ms(150);
+	LnS_BuzzerSwitch(OFF);
 	
 	while (1)
 	{		
 		// read sensors
-		
-		get_dist_cm(mysensor);
-		CTRL_SendDistance((mysensor->_last_distance_mm)/10);
-		
-		if(mysensor->_last_distance_mm < 150) {
-			LnS_BuzzerSwitch(ON);
-			} else {
-			LnS_BuzzerSwitch(OFF);
-		}
+		SENS_CheckForObstacles(200, 50);
 		
 		// read commands from controller
 		if(UART_available()){
@@ -49,7 +40,7 @@ int main(void)
 				// lightandsound command
 			}
 		}
-		_delay_ms(50);
+		_delay_ms(20);
 	}
 	return 0;
 }

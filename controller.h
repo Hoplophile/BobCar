@@ -24,9 +24,9 @@ enum commands{
 	LIGHTS_OFF,
 	BEEP,
 	UNKNOWN
-	};
+	} command;
 
-void CTRL_SendDistance(unsigned long); 
+void CTRL_SendDistance(unsigned long, unsigned long); 
 void CTRL_SendTemp(unsigned int);
 enum commands CTRL_GetCommand(void);
 

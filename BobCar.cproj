@@ -154,6 +154,12 @@
     <Compile Include="powertrain.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="sensors.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sensors.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="sr_04.c">
       <SubType>compile</SubType>
     </Compile>

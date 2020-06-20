@@ -7,9 +7,9 @@
 
 #include "controller.h"
 
-void CTRL_SendDistance(unsigned long distance){
-	char message[15];
-	sprintf(message, "D%lu\n", distance);
+void CTRL_SendDistance(unsigned long distance_left, unsigned long distance_right){
+	char message[20];
+	sprintf(message, "DL:%lu cm R:%lu\n", distance_left, distance_right);
 	UART_putstring(&message[0]);
 }
 

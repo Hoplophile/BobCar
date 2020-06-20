@@ -10,6 +10,8 @@ main.c
 
 powertrain.c
 
+sensors.c
+
 sr_04.c
 
 uart.c

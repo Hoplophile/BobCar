@@ -6,20 +6,33 @@
  */ 
 
 #include "lights_and_sound.h"
+#include <avr/interrupt.h>
 
 uint8_t buzzer_timer_compare_value;
+//uint8_t timer_overflow_counter;
+//
+//ISR(TIMER1_OVF_vect)
+//{
+	//timer_overflow_counter++;	/* Increment Timer Overflow count */
+	//if(timer_overflow_counter > 100){
+		//LnS_BuzzerSwitch(OFF);
+		////TCCR0A &= !(1 << COM0B1);
+	//}
+//}
 
 /* Init_Timer0
 *  Initialize Timer0 for Fast PWM on pin 5 (BUZZER)
 */
 void Init_Timer0() {
-	//		  tmr 8-bit					  | toggle pin 5
-	TCCR0A |= (1 << WGM01) | (1 << WGM00) | (1 << COM0B1);
 	
-	//		  prescaler 1
-	TCCR0B |= (1 << WGM02);
+	sei();
 	
-	OCR0A = 0x40;
+	//		  tmr 8-bit									 | toggle pin 5
+	TCCR0A |= (1 << WGM02) | (1 << WGM01) | (1 << WGM00) | (1 << COM0B1);
+	
+	//TIMSK0 |= (1 << TOIE0);
+		
+	OCR0A = 0xF0;
 }
 
 /* LnS_Init
@@ -38,19 +51,15 @@ void LnS_Init(){
 	LnS_BuzzerSwitch(OFF);
 }
 
-int LnS_CheckDawn(){
-	
-}
-
 /* LnS_BuzzerSwitch
  * Switch buzzer ON/OFF
  *	state: ON/OFF defined in .h
  */
 void LnS_BuzzerSwitch(int state){
 	if(state == OFF)
-		TCCR0B &= (0 << CS02);	
+		TCCR0B &= (0 << CS02);		//timer 0 off
 	else
-		TCCR0B |= (1 << CS02);					//16Mhz / (1 * 255) = 62kHz}
+		TCCR0B |= (1 << CS02);		//16Mhz / (1 * 255) = 62kHz}
 }
 
 /* LnS_MainLightsSwitch

@@ -8,6 +8,8 @@
 #include "powertrain.h"
 
 int power = 85;
+bool block_forward = false;
+bool block_backward = false;
 
 /* Timer2_Init
  * Initialize Timer2 for Fast PWM on pin 11
@@ -48,6 +50,8 @@ void POWTR_Init(){
 	PORTB &= ~(1 << PIN_TURN_R);
 	
 	Timer2_Init();
+	
+	car_state = STOPPED;
 }
 
 /* POWTR_TurnLeft
@@ -105,6 +109,24 @@ void POWTR_Stop(){
 	PORTD &= ~(1 << PIN_BWD);
 }
 
+void POWTR_BlockDrivingForward(){
+	block_forward = true;
+	POWTR_Stop();
+}
+
+void POWTR_BlockDrivingBackward(){
+	block_backward = true;
+	POWTR_Stop();
+}
+
+void POWTR_UnblockDrivingForward(){
+	block_forward = false;
+}
+
+void POWTR_UnblockDrivingBackward(){
+	block_backward = false;
+}
+
 /* POWTR_SendCommand
  * Pass command to powertrain module to perform
  * action related to driving
@@ -115,30 +137,43 @@ void POWTR_Stop(){
 void POWTR_SendCommand(enum commands command){
 	switch(command){
 		case FORWARD:
+			if(block_forward) break;
+			car_state = DRV_FWD;
 			POWTR_NoTurn();
 			POWTR_DriveForward();
 			break;
 		case FORWARD_LEFT:
+			if(block_forward) break;
+			car_state = DRV_FWD_L;
 			POWTR_TurnLeft();
 			POWTR_DriveForward();
 			break;
 		case FORWARD_RIGHT:
+			if(block_forward) break;
+			car_state = DRV_FWD_R;
 			POWTR_TurnRight();
 			POWTR_DriveForward();
 			break;
 		case BACKWARDS:
+			if(block_backward) break;
+			car_state = DRV_BWD;
 			POWTR_NoTurn();
 			POWTR_DriveBackward();
 			break;
 		case BACKWARDS_LEFT:
+			if(block_backward) break;
+			car_state = DRV_BWD_L;
 			POWTR_TurnLeft();
 			POWTR_DriveBackward();
 			break;
 		case BACKWARDS_RIGHT:
+			if(block_backward) break;
+			car_state = DRV_BWD_R;
 			POWTR_TurnRight();
 			POWTR_DriveBackward();
 			break;
 		case NEUTRAL:
+			car_state = STOPPED;
 			POWTR_NoTurn();
 			POWTR_Stop();
 			break;	

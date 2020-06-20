@@ -32,6 +32,6 @@ sr_04 *sensor_new(uint8_t measure_iter,
 
 void measure_duration(sr_04 *sensor);
 int calculate_distance_mm(uint16_t duration);
-int get_dist_cm(sr_04 *sensor);
+int get_dist_mm(sr_04 *sensor);
 
 #endif
