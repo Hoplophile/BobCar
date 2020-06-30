@@ -21,6 +21,14 @@ void SENS_Init(){
 	FR_proximity = sensor_new(4, &DDRD, DDD3, &PORTD, PORTD3, &DDRD, DDD6, &PIND, PIND6);
 	// front left proximity sensor
 	FL_proximity = sensor_new(4, &DDRB, DDB5, &PORTB, PORTB5, &DDRB, DDB4, &PINB, PINB4);
+	
+	ADMUX = 0b01100000;
+	ADCSRA = 0b10000111;
+	
+}
+
+void SENS_CheckLight(void){
+	
 }
 
 void SENS_CheckForObstacles(int warn_distance, int critical_distance){

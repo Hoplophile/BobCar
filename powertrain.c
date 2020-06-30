@@ -7,7 +7,6 @@
 
 #include "powertrain.h"
 
-int power = 85;
 bool block_forward = false;
 bool block_backward = false;
 
@@ -51,6 +50,7 @@ void POWTR_Init(){
 	
 	Timer2_Init();
 	
+	power = 50;
 	car_state = STOPPED;
 }
 

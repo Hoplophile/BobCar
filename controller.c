@@ -7,6 +7,8 @@
 
 #include "controller.h"
 
+extern int power;
+
 void CTRL_SendDistance(unsigned long distance_left, unsigned long distance_right){
 	char message[20];
 	sprintf(message, "DL:%lu cm R:%lu\n", distance_left, distance_right);
@@ -17,6 +19,12 @@ void CTRL_SendTemp(unsigned int temperature){
 	char message[15];
 	sprintf(message, "T%u\n", temperature);
 	UART_putstring(&message[0]);
+}
+
+void CTRL_GetPower(void){
+	if(UART_available()){
+		power = 10*(int)(UART_read()-'0');
+	}
 }
 
 enum commands CTRL_GetCommand(){
@@ -45,9 +53,6 @@ enum commands CTRL_GetCommand(){
 		case 'S':
 			return NEUTRAL;
 			break;
-		case 'J':
-			return POWER;
-			break;
 		case 'M':
 			return LIGHTS_ON;
 			break;
@@ -56,6 +61,10 @@ enum commands CTRL_GetCommand(){
 			break;
 		case 'X':
 			return BEEP;
+			break;
+		case 'J':
+			CTRL_GetPower();
+			return POWER;
 			break;
 		default:
 			return UNKNOWN;

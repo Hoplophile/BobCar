@@ -14,7 +14,10 @@
 #include "lights_and_sound.h"
 #include <avr/io.h>
 
+#define TWILIGHT_SENSOR PD2
+
 void SENS_Init(void);
+void SENS_CheckLight(void);
 void SENS_CheckForObstacles(int warn, int critical);
 
 #endif /* SENSORS_H_ */

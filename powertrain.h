@@ -19,6 +19,8 @@
 #define PIN_TURN_L	PD7
 #define PIN_TURN_R	PB0
 
+int power;
+
 enum car_states{
 	STOPPED,
 	DRV_FWD,

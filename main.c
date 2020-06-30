@@ -29,6 +29,7 @@ int main(void)
 	{		
 		// read sensors
 		SENS_CheckForObstacles(200, 50);
+		SENS_CheckLight();
 		
 		// read commands from controller
 		if(UART_available()){
